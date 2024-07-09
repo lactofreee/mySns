@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
     // 적용시킬 css 입력
     ${reset}
     a{
-        text-decoration: none;
+        text-decoration: underline;
         color: inherit;
     }
     *{

@@ -1,46 +1,22 @@
 import React, { useState } from "react";
-import { styled } from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 420px;
-  padding: 50px 0px;
-`;
+import { auth } from "../firebase/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
-const Form = styled.form`
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-`;
-
-const Input = styled.input`
-  padding: 10px 20px;
-  border-radius: 50px;
-  width: 100%;
-  font-size: 16px;
-  &[type="submit"] {
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-`;
-
-const Title = styled.h1`
-  font-size: 42px;
-`;
-
-const Error = styled.span`
-  font-weight: 600;
-  color: tomato;
-`;
+import {
+  Title,
+  Wrapper,
+  Form,
+  Input,
+  Switcher,
+  Error,
+} from "../components/Auth-components";
+import GithubBtn from "../components/githubBtn";
 
 const CreateAccount = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -60,22 +36,44 @@ const CreateAccount = () => {
     }
   };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError("");
+
+    if (isLoading || name === "" || email === "" || password === "") return;
+
     try {
+      setIsLoading(true);
+      // create an account
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(credentials.user);
+
+      // set the name of the user
+      await updateProfile(credentials.user, {
+        displayName: name,
+      });
+
+      // redirect to the home page
+      navigate("/");
     } catch (e) {
+      if (e instanceof FirebaseError) {
+        setError(e.message);
+      }
       // set Error
     } finally {
       setIsLoading(false);
     }
-    // create an account
-    // set the name of the user
-    // redirect to the home page
+
     console.log(name, email, password);
   };
+
   return (
     <Wrapper>
-      <Title>Login</Title>
+      <Title>sign up</Title>
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
@@ -107,6 +105,10 @@ const CreateAccount = () => {
         />
       </Form>
       {error !== "" ? <Error>{error}</Error> : null}
+      <Switcher>
+        Already have an account? <Link to="/login">Log in &rarr;</Link>
+      </Switcher>
+      <GithubBtn />
     </Wrapper>
   );
 };
