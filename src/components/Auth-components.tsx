@@ -26,6 +26,7 @@ export const Input = styled.input`
   font-size: 16px;
   &[type="submit"] {
     cursor: pointer;
+    margin-bottom: 5px;
     &:hover {
       opacity: 0.8;
     }
@@ -37,8 +38,13 @@ export const Title = styled.h1`
 `;
 
 export const Error = styled.span`
-  font-weight: 600;
+  width: 100%;
+  padding: 10px;
+  padding-top: 0px;
+  font-size: 12px;
+  font-weight: 400;
   color: tomato;
+  
 `;
 
 export const Switcher = styled.span`
