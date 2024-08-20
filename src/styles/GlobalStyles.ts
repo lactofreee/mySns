@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
     // 적용시킬 css 입력
     ${reset}
     a{
-        text-decoration: underline;
+        text-decoration: none;
         color: inherit;
     }
     *{
@@ -20,12 +20,11 @@ const GlobalStyles = createGlobalStyle`
     }
     body{
         line-height: 1;
-        font-family: 'Noto Sans KR', sans-serif;
-        background-color: white;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         height: 100vh;
         font-size: 16px;
         color: white;
-        background-color: #212121;
+        background-color: black;
     }
     ol, ul{
         list-style: none;

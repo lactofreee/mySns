@@ -1,18 +1,11 @@
 import React from 'react';
-import { auth } from '../firebase/firebase';
-import { styled } from 'styled-components';
+import PostTweetForm from '../components/post-tweet-form';
 
-const LogOutBtn = styled.button`
-  height: 20px;
-`
 
 const Home = () => {
-  const logOut = () => {
-    auth.signOut()
-  }
   return (
     <>
-      <LogOutBtn onClick={logOut}>Log Out</LogOutBtn>
+      <PostTweetForm />
     </>
   );
 };
