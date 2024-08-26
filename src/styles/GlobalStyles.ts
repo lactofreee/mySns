@@ -4,6 +4,10 @@ import reset from "styled-reset";
 const GlobalStyles = createGlobalStyle`
     // 적용시킬 css 입력
     ${reset}
+    ::-webkit-scrollbar {
+        display:none;
+    }
+
     a{
         text-decoration: none;
         color: inherit;

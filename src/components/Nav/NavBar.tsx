@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { auth } from "../firebase/firebase";
+import { auth } from "../../firebase/firebase";
 
 import { GoHomeFill } from "react-icons/go";
 import { BiSolidUser } from "react-icons/bi";
