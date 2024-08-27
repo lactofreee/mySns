@@ -1,21 +1,24 @@
 import styled from "styled-components";
 import { ITweet } from "./timeline";
 
+import MeatballMenu from "../../utils/meatballMenu";
+import { auth } from "../../firebase/firebase";
+
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   border-top: 1px;
   border-bottom: 1px;
   border-color: #2f3336;
   border-style: solid;
   color: white;
+  gap: 10px;
 `;
 
-const Colum = styled.div`
+const Containner = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: space-between;
 `;
 
 const Username = styled.span`
@@ -29,23 +32,23 @@ const Payload = styled.p`
 `;
 
 const Photo = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 15px;
 `;
 
-export default function Tweet({ username, photo, tweet }: ITweet) {
+export default function Tweet({ username, photo, tweet, userId }: ITweet) {
+  const user = auth.currentUser;
+
   return (
     <Wrapper>
-      <Colum>
+      <Containner>
         <Username>{username}</Username>
-        <Payload>{tweet}</Payload>
-      </Colum>
-      {photo ? (
-        <Colum>
-          <Photo src={photo} />
-        </Colum>
-      ) : null}
+        <MeatballMenu currentUser={user} tweetUserId={userId} />
+      </Containner>
+      <Payload>{tweet}</Payload>
+      {photo ? <Photo src={photo} /> : null}
     </Wrapper>
   );
 }
