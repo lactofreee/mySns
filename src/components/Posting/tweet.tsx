@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   padding: 20px;
   border-top: 1px;
   border-bottom: 1px;
-  border-color: #2F3336;
+  border-color: #2f3336;
   border-style: solid;
   color: white;
 `;

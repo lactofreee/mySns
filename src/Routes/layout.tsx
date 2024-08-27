@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import NavBar from "./Nav/NavBar";
+import NavBar from "../components/Nav/NavBar";
 import { Outlet } from "react-router-dom";
 
 const Wrapper = styled.div`

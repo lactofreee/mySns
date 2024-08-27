@@ -9,10 +9,10 @@ import {
   Wrapper,
   Switcher,
   Error,
-} from "../components/Auth-components";
-import GithubBtn from "../components/githubBtn";
-import FirebaseErrorHandler from "../components/FirebaseErrorHandler";
-import LoginForm, { ILoginFormData } from "../components/LoginForm";
+} from "../components/Account/Auth-components";
+import GithubBtn from "../components/Account/githubBtn";
+import LoginForm, { ILoginFormData } from "../components/Account/LoginForm";
+import FirebaseErrorHandler from "../components/Account/FirebaseErrorHandler";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,14 +20,12 @@ const Login = () => {
 
   const onLoginFormValid: SubmitHandler<ILoginFormData> = async (data) => {
     try {
-
-      await signInWithEmailAndPassword(auth,
-        data.email,
-        data.password);
+      await signInWithEmailAndPassword(auth, data.email, data.password);
       navigate("/");
     } catch (e) {
       if (e instanceof FirebaseError) {
-        setError(e.message);
+        setError(e.code);
+        console.log(error);
       }
     }
   };

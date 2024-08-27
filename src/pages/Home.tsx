@@ -1,7 +1,7 @@
 import React from "react";
-import PostTweetForm from "../components/post-tweet-form";
+import PostTweetForm from "../components/Posting/post-tweet-form";
 import styled from "styled-components";
-import Timeline from "../components/timeline";
+import Timeline from "../components/Posting/timeline";
 
 const Wrapper = styled.div`
   display: grid;

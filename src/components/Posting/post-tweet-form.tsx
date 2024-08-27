@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { TbPhoto } from "react-icons/tb";
 import { addDoc, collection, updateDoc } from "firebase/firestore";
-import { auth, db, storage } from "../firebase/firebase";
+import { auth, db, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
@@ -73,7 +73,9 @@ const PostTweetForm = () => {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files.length === 1) {
-      files[0].size <= IMAGE_MAX_SIZE ? setFile(files[0]): alert("용량이 너무 큽니다.")
+      files[0].size <= IMAGE_MAX_SIZE
+        ? setFile(files[0])
+        : alert("용량이 너무 큽니다.");
     }
   };
 

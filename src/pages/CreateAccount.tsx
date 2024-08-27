@@ -6,10 +6,17 @@ import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
-import { Title, Wrapper, Switcher, Error } from "../components/Auth-components";
-import GithubBtn from "../components/githubBtn";
-import FirebaseErrorHandler from "../components/FirebaseErrorHandler";
-import CreateAccountForm, { IAuthFormData } from "../components/CreateAccountForm";
+import {
+  Title,
+  Wrapper,
+  Switcher,
+  Error,
+} from "../components/Account/Auth-components";
+import GithubBtn from "../components/Account/githubBtn";
+import CreateAccountForm, {
+  IAuthFormData,
+} from "../components/Account/CreateAccountForm";
+import FirebaseErrorHandler from "../components/Account/FirebaseErrorHandler";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -33,7 +40,7 @@ const CreateAccount = () => {
       navigate("/");
     } catch (e) {
       if (e instanceof FirebaseError) {
-        setError(e.message);
+        setError(e.code);
       }
     }
   };
@@ -41,8 +48,7 @@ const CreateAccount = () => {
   return (
     <Wrapper>
       <Title>sign up</Title>
-      <CreateAccountForm
-        onAuthFormValid={onAuthFormValid}></CreateAccountForm>
+      <CreateAccountForm onAuthFormValid={onAuthFormValid}></CreateAccountForm>
       {error !== "" ? <Error>{FirebaseErrorHandler(error)}</Error> : null}
       <Switcher>
         Already have an account? <Link to="/login">Log in &rarr;</Link>

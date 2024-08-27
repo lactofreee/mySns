@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/layout";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import Login from "./pages/Login";
-import CreateAccount from "./pages/CreateAccount";
+import Layout from "./layout";
+import Home from "../pages/Home";
+import Profile from "../pages/Profile";
+import Login from "../pages/Login";
+import CreateAccount from "../pages/CreateAccount";
 import { useEffect, useState } from "react";
-import LoadingScreen from "./components/loading-screen";
-import { auth } from "./firebase/firebase";
+import LoadingScreen from "../utils/loading-screen";
+import { auth } from "../firebase/firebase";
 import styled from "styled-components";
-import ProtectedRoute from "./components/Protected-route";
+import ProtectedRoute from "./Protected-route";
 
 const Wrapper = styled.div`
   height: 100vh;
