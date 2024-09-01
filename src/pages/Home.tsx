@@ -12,7 +12,7 @@ const Container = styled.div`
   display: grid;
   gap: 10px;
   overflow-y: scroll;
-  grid-template-rows: 1fr 5fr;
+  grid-template-rows: 1fr 9fr;
   border: 1px solid #2f3336;
 `;
 

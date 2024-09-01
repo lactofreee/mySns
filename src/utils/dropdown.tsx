@@ -1,6 +1,11 @@
 import { styled } from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { LuPencil } from "react-icons/lu";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db, storage } from "../firebase/firebase";
+
+import { deleteObject, ref } from "firebase/storage";
+import { User } from "firebase/auth";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -17,6 +22,7 @@ const Wrapper = styled.div`
   z-index: 1000;
   padding: 14px 20px;
   gap: 18px;
+  font-weight: 600;
 `;
 
 const Container = styled.div`
@@ -32,12 +38,40 @@ const DeleteBtn = styled.label`
   display: contents;
 `;
 
-export default function DropDown({ canDelete }: { canDelete: boolean }) {
+interface DropDownProps {
+  canDelete: boolean;
+  id: string;
+  photo: string;
+  currentUser: User | null;
+}
+
+export default function DropDown({
+  currentUser,
+  canDelete,
+  id,
+  photo,
+}: DropDownProps) {
+  const onDelete = async () => {
+    const ok = confirm("이 트윗을 삭제하시겠습니까?");
+    if (!ok || !canDelete) return;
+    try {
+      await deleteDoc(doc(db, "tweets", id));
+      if (photo) {
+        const photoRef = ref(storage, `tweets/${currentUser?.uid}/${id}`);
+        await deleteObject(photoRef);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      //
+    }
+  };
+
   return (
     <Wrapper>
       {canDelete ? (
         <Container>
-          <DeleteBtn>
+          <DeleteBtn onClick={onDelete}>
             <FaRegTrashAlt />
             삭제하기
           </DeleteBtn>

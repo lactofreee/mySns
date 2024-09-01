@@ -3,6 +3,7 @@ import { ITweet } from "./timeline";
 
 import MeatballMenu from "../../utils/meatballMenu";
 import { auth } from "../../firebase/firebase";
+import { User } from "firebase/auth";
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,14 +39,31 @@ const Photo = styled.img`
   border-radius: 15px;
 `;
 
-export default function Tweet({ username, photo, tweet, userId }: ITweet) {
-  const user = auth.currentUser;
+export interface MeatballMenuProps {
+  currentUser: User | null;
+  id: string;
+  photo: string;
+  username: string;
+  userId: string;
+  tweet: string;
+}
+
+export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
+  const currentUser = auth.currentUser;
+  const meatballMenuProps = {
+    currentUser,
+    username,
+    photo,
+    tweet,
+    userId,
+    id,
+  };
 
   return (
     <Wrapper>
       <Containner>
         <Username>{username}</Username>
-        <MeatballMenu currentUser={user} tweetUserId={userId} />
+        <MeatballMenu {...meatballMenuProps} />
       </Containner>
       <Payload>{tweet}</Payload>
       {photo ? <Photo src={photo} /> : null}

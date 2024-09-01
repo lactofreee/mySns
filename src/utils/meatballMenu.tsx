@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import DropDown from "./dropdown";
 import { styled } from "styled-components";
-import { User } from "firebase/auth";
+import { MeatballMenuProps } from "../components/Posting/tweet";
 
 const Wrapper = styled.div`
   color: white;
@@ -11,14 +11,11 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-interface MeatballMenuProps {
-  currentUser: User | null;
-  tweetUserId: string;
-}
-
 export default function MeatballMenu({
   currentUser,
-  tweetUserId,
+  userId,
+  id,
+  photo,
 }: MeatballMenuProps) {
   const [view, setView] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -32,7 +29,7 @@ export default function MeatballMenu({
   };
 
   useEffect(() => {
-    if (currentUser?.uid === tweetUserId) {
+    if (currentUser?.uid === userId) {
       setCanDelete(true);
     }
 
@@ -54,7 +51,14 @@ export default function MeatballMenu({
         }}
       >
         <BsThreeDots />
-        {view && <DropDown canDelete={canDelete} />}
+        {view && (
+          <DropDown
+            canDelete={canDelete}
+            id={id}
+            photo={photo}
+            currentUser={currentUser}
+          />
+        )}
       </div>
     </Wrapper>
   );
