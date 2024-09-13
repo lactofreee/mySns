@@ -20,7 +20,12 @@ export interface ITweet {
   id: string;
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+`;
 
 export default function Timeline() {
   const [tweets, setTweets] = useState<ITweet[]>([]);

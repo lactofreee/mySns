@@ -13,6 +13,8 @@ const GlobalStyles = createGlobalStyle`
         color: inherit;
     }
     *{
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
     }
     html, body, div, span, h1, h2, h3, h4, h5, h6, p, 
@@ -25,7 +27,6 @@ const GlobalStyles = createGlobalStyle`
     body{
         line-height: 1;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        height: 100vh;
         font-size: 16px;
         color: white;
         background-color: black;

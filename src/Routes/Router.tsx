@@ -11,7 +11,6 @@ import styled from "styled-components";
 import ProtectedRoute from "./Protected-route";
 
 const Wrapper = styled.div`
-  height: 100vh;
   display: flex;
   justify-content: center;
 `;
