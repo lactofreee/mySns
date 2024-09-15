@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { emailPattern, passwordPattern } from "../../utils/patterns";
-import { Form, Input, Error } from "../Account/Auth-components";
+import { Error, Form, Input } from "../Account/Auth-components";
 
 export interface IAuthFormData {
   name: string;

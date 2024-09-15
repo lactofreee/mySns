@@ -1,16 +1,15 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./layout";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import Login from "../pages/Login";
 import CreateAccount from "../pages/CreateAccount";
-import { useEffect, useState } from "react";
 import LoadingScreen from "../utils/loading-screen";
-import { auth } from "../firebase/firebase";
-import styled from "styled-components";
 import ProtectedRoute from "./Protected-route";
+import useAuthState from "../hooks/useAuthState";
+import { styled } from "styled-components";
 
-const Wrapper = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -49,18 +48,15 @@ const router = createBrowserRouter([
 ]);
 
 function Router() {
-  const [isLoading, setIsLoading] = useState(true);
-  const init = async () => {
-    await auth.authStateReady();
-    setIsLoading(false);
-  };
-  useEffect(() => {
-    init();
-  }, []);
+  const isAuthStateReady = useAuthState();
   return (
-    <Wrapper>
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-    </Wrapper>
+    <Container>
+      {isAuthStateReady ? (
+        <RouterProvider router={router} />
+      ) : (
+        <LoadingScreen />
+      )}
+    </Container>
   );
 }
 

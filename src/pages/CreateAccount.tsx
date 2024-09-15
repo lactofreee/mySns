@@ -7,10 +7,10 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 import {
+  Error,
+  Switcher,
   Title,
   Wrapper,
-  Switcher,
-  Error,
 } from "../components/Account/Auth-components";
 import GithubBtn from "../components/Account/githubBtn";
 import CreateAccountForm, {

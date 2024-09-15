@@ -5,10 +5,10 @@ import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import {
+  Error,
+  Switcher,
   Title,
   Wrapper,
-  Switcher,
-  Error,
 } from "../components/Account/Auth-components";
 import GithubBtn from "../components/Account/githubBtn";
 import LoginForm, { ILoginFormData } from "../components/Account/LoginForm";

@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
-import { auth } from "../../firebase/firebase";
 
 import { GoHomeFill } from "react-icons/go";
 import { BiSolidUser } from "react-icons/bi";
 import { TbLogout } from "react-icons/tb";
+import useLogOut from "../../hooks/useLogOut";
 
 const Menu = styled.div`
   display: flex;
@@ -14,7 +14,6 @@ const Menu = styled.div`
 `;
 
 const MenuComponent = styled.div`
-  /* outline: 1px dotted red; */
   border-radius: 30px;
   padding: 15px 25px 12px 12px;
   transition: background-color 0.09s ease-in;
@@ -49,14 +48,7 @@ const MenuTitle = styled.div`
 `;
 
 const NavBar = () => {
-  const navigate = useNavigate();
-  const onLogOut = async () => {
-    const confirmLogOut = confirm("Are you sure you want to log out?");
-    if (confirmLogOut) {
-      await auth.signOut();
-      navigate("/login");
-    }
-  };
+  const { onLogOut } = useLogOut();
   return (
     <>
       <Menu>

@@ -1,4 +1,4 @@
-import { Form, Input, Error } from "./Auth-components";
+import { Error, Form, Input } from "./Auth-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { emailPattern, passwordPattern } from "../../utils/patterns";
 

@@ -1,4 +1,4 @@
-import PostTweetForm from "../components/Posting/post-tweet-form";
+import PostTweetForm from "../components/Posting/postTweetForm";
 import styled from "styled-components";
 import Timeline from "../components/Posting/timeline";
 
@@ -16,8 +16,6 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
 `;
-
-
 
 const DummyBox = styled.div``;
 
