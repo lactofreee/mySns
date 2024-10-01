@@ -24,7 +24,7 @@ const Home = () => {
     <Wrapper>
       <Container>
         <PostTweetForm />
-          <Timeline />
+        <Timeline />
       </Container>
       <DummyBox></DummyBox>
     </Wrapper>

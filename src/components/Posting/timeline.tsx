@@ -6,19 +6,12 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { db } from "../../firebase/firebase";
 import Tweet from "./tweet";
-
-export interface ITweet {
-  createdAt: number;
-  photo: string;
-  tweet: string;
-  userId: string;
-  username: string;
-  id: string;
-}
+import { useRecoilState } from "recoil";
+import { tweetsState } from "../../Atom/atom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,40 +21,35 @@ const Wrapper = styled.div`
 `;
 
 export default function Timeline() {
-  const [tweets, setTweets] = useState<ITweet[]>([]);
+  const [tweets, setTweets] = useRecoilState(tweetsState);
 
   useEffect(() => {
-    let unsubscribe: Unsubscribe | null = null;
-    const fetchTweets = async () => {
-      const tweetsQuerry = query(
-        collection(db, "tweets"),
-        orderBy("createdAt", "desc"),
-        limit(25)
-      );
-      unsubscribe = await onSnapshot(tweetsQuerry, (snapshot) => {
-        const newTweets = snapshot.docs.map((doc) => {
-          const { createdAt, photo, tweet, userId, username } = doc.data();
-          return {
-            id: doc.id,
-            createdAt,
-            photo,
-            tweet,
-            userId,
-            username,
-          };
-        });
-        setTweets(newTweets);
+    const tweetsQuerry = query(
+      collection(db, "tweets"),
+      orderBy("createdAt", "desc"),
+      limit(25),
+    );
+    const unsubscribe: Unsubscribe = onSnapshot(tweetsQuerry, (snapshot) => {
+      const newTweets = snapshot.docs.map((doc) => {
+        const { createdAt, photo, tweet, userId, username } = doc.data();
+        return {
+          createdAt,
+          photo,
+          tweet,
+          userId,
+          username,
+          docId: doc.id,
+        };
       });
-    };
-    fetchTweets();
-    return () => {
-      unsubscribe && unsubscribe();
-    };
-  }, []);
+      setTweets(newTweets);
+    });
+    return () => unsubscribe();
+  }, [setTweets]);
+
   return (
     <Wrapper>
       {tweets.map((tweet) => (
-        <Tweet key={tweet.id} {...tweet} />
+        <Tweet key={tweet.docId} {...tweet} />
       ))}
     </Wrapper>
   );

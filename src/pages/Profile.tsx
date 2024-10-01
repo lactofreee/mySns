@@ -1,11 +1,6 @@
-import React from 'react';
 
 const Profile = () => {
-  return (
-    <div>
-      hello
-    </div>
-  );
-};
+  return <></>
+}
 
 export default Profile;

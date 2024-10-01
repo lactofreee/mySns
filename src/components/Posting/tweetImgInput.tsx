@@ -16,7 +16,7 @@ interface IHandleTweetImgProps {
   onImgChange : (event:React.ChangeEvent<HTMLInputElement>)=>void;
 }
 
-const TweetImgInput = ({tweetImg, onImgChange}:IHandleTweetImgProps) => {
+const TweetImgInput = ({ tweetImg, onImgChange }: IHandleTweetImgProps) => {
   return (
     <>
       <AttachFileBtn htmlFor="file">

@@ -73,7 +73,7 @@ const PostTweetForm = () => {
     try {
       const docRef = await createTweetDoc();
       if (tweetImg) {
-       const tweetImgUrl = createTweetImgUrl(docRef.id)
+        const tweetImgUrl = await createTweetImgUrl(docRef.id)
         await updateDoc(docRef, { photo: tweetImgUrl });
       }
       // 등록된 이미지 파일과 트윗을 firebase에 업로드 하는 기능

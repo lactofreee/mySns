@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import DropDown from "./dropdown";
 import { styled } from "styled-components";
-import { MeatballMenuProps } from "../components/Posting/tweet";
+import { User } from "firebase/auth";
+import { modalState } from "../Atom/atom";
+import { useRecoilValue } from "recoil";
 
 const Wrapper = styled.div`
   color: white;
@@ -11,50 +13,56 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
+interface MeatballMenuProps {
+  photo: string;
+  userId: string;
+  docId: string;
+  currentUser: User | null;
+}
+
 export default function MeatballMenu({
   currentUser,
   userId,
-  id,
+  docId,
   photo,
 }: MeatballMenuProps) {
-  const [view, setView] = useState(false);
+  const isModalOpen = useRecoilValue(modalState);
+  const [isDropdownVisivle, setIsDropdownVisivle] = useState(false);
+  const [isUserAuthorizedToDelete, setIsUserAuthorizedToDelete] =
+    useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const [canDelete, setCanDelete] = useState(false);
 
-  // 외부 클릭 감지 함수
-  const handleClickOutside = (e: MouseEvent) => {
-    if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-      setView(false);
-    }
+  const handleToggle = () => {
+    setIsDropdownVisivle(!isDropdownVisivle);
+  };
+
+  const handleMousedownOutside = (e: MouseEvent) => {
+    // early return pattern으로 조건에 맞지 않는경우 불필요한 menuRef.current 검토 없앰
+    if (
+      !menuRef.current ||
+      menuRef.current.contains(e.target as Node) ||
+      isModalOpen
+    )
+      return;
+    setIsDropdownVisivle(false);
   };
 
   useEffect(() => {
-    if (currentUser?.uid === userId) {
-      setCanDelete(true);
-    }
-
-    // 마운트 시 이벤트 리스너 추가
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // 언마운트 시 이벤트 리스너 제거
+    setIsUserAuthorizedToDelete(currentUser?.uid === userId);
+    document.addEventListener("mousedown", handleMousedownOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleMousedownOutside);
     };
-  }, []);
+  }, [currentUser?.uid, userId, isModalOpen]);
 
   return (
     <Wrapper>
-      <div
-        ref={menuRef}
-        onClick={() => {
-          setView(!view);
-        }}
-      >
+      <div ref={menuRef} onClick={handleToggle}>
         <BsThreeDots />
-        {view && (
+        {isDropdownVisivle && (
           <DropDown
-            canDelete={canDelete}
-            id={id}
+            isUserAuthorizedToDelete={isUserAuthorizedToDelete}
+            id={docId}
             photo={photo}
             currentUser={currentUser}
           />

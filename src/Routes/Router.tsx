@@ -48,10 +48,10 @@ const router = createBrowserRouter([
 ]);
 
 function Router() {
-  const isAuthStateReady = useAuthState();
+  const  isAuthStateReady = useAuthState()
   return (
     <Container>
-      {isAuthStateReady ? (
+      { isAuthStateReady ? (
         <RouterProvider router={router} />
       ) : (
         <LoadingScreen />
