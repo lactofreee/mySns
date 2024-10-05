@@ -14,6 +14,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
+import { ITweet } from "../components/Posting/tweet";
 
 export const uploadAvatarToStorage = async (
   file: File,
@@ -43,5 +44,5 @@ export const fetchUserTweets = async (userId: string, db: Firestore) => {
   return snapshot.docs.map((doc) => ({
     ...doc.data(),
     docId: doc.id,
-  }));
+  } as ITweet));
 };
