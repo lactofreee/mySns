@@ -1,5 +1,4 @@
 import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
-import React from "react";
 import styled from "styled-components";
 import { auth } from "../../firebase/firebase";
 import { useNavigate } from "react-router-dom";
@@ -25,14 +24,14 @@ const Logo = styled.img`
 `;
 
 const GithubBtn = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const provider = new GithubAuthProvider();
   const onClick = async () => {
     try {
-      const provider = new GithubAuthProvider();
       await signInWithPopup(auth, provider);
-      navigate("/")
+      navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error("로그인 실패: ", error);
     }
   };
   return (

@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 20px;
   border-top: 1px;
-  border-bottom: 1px;
   border-color: #2f3336;
   border-style: solid;
   color: white;
@@ -35,6 +34,7 @@ const Payload = styled.p`
 const Photo = styled.img`
   width: 100%;
   height: 100%;
+  max-height: 650px;
   object-fit: cover;
   border-radius: 15px;
 `;

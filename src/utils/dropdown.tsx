@@ -85,18 +85,20 @@ export default function DropDown({
   };
 
   return (
-    <Wrapper onClick={handleClick}>
+    <>
       {isUserAuthorizedToDelete ? (
-        <Container>
-          <DeleteBtn onClick={onDelete}>
-            <FaRegTrashAlt />
-            삭제
-          </DeleteBtn>
-        </Container>
+        <Wrapper onClick={handleClick}>
+          <Container>
+            <DeleteBtn onClick={onDelete}>
+              <FaRegTrashAlt />
+              삭제
+            </DeleteBtn>
+          </Container>
+          <Container>
+            <EditTweet />
+          </Container>
+        </Wrapper>
       ) : null}
-      <Container>
-        <EditTweet />
-      </Container>
-    </Wrapper>
+    </>
   );
 }

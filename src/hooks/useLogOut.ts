@@ -6,8 +6,12 @@ const useLogOut = () => {
   const onLogOut = async () => {
     const confirmLogOut = confirm("Are you sure you want to log out?");
     if (confirmLogOut) {
-      await auth.signOut();
-      navigate("/login");
+      try {
+        await auth.signOut();
+        navigate("/login");
+      } catch (error) {
+        console.error("LogOut failed:", error);
+      }
     }
   };
   return { onLogOut };

@@ -37,7 +37,7 @@ const EditTweet = () => {
   const tweetId = tweetObj?.id || "";
 
   if (!tweetId) {
-    console.error("Invalid tweet ID");
+    // console.error("Invalid tweet ID");
     return;
   }
   const tweetRef = doc(db, "tweets", tweetId);
